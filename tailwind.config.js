@@ -13,6 +13,12 @@ module.exports = {
       fontFamily: {
         poppins: 'Poppins',
         poppinsBold: 'PoppinsBold',
+        plusJakartaSansBold: 'PlusJakartaSansBold',
+      },
+      colors: {
+        backgroundColor: '#01162D',
+        cardGradientFrom: '#213356',
+        cardGradientTo: '#0C182F',
       },
     },
   },

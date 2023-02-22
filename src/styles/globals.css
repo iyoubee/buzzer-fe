@@ -12,4 +12,9 @@
     font-family: 'PoppinsBold';
     src: url('/assets/fonts/poppins_bold.ttf');
   }
+
+  @font-face {
+    font-family: 'PlusJakartaSansBold';
+    src: url('/assets/fonts/plus_jakarta_sans_bold.ttf');
+  }
 }
