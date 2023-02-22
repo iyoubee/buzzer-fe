@@ -19,6 +19,7 @@ module.exports = {
         backgroundColor: '#01162D',
         cardGradientFrom: '#213356',
         cardGradientTo: '#0C182F',
+        blueOnBackgroud: '#88BFE8',
       },
     },
   },
