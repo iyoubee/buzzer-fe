@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconProps } from './interface'
 
-export const RistekIcon: React.FC<IconProps> = () => {
+export const RistekIcon: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       width="31"
@@ -9,6 +9,7 @@ export const RistekIcon: React.FC<IconProps> = () => {
       viewBox="0 0 31 50"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         fillRule="evenodd"
