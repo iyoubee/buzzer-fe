@@ -35,7 +35,7 @@ export const IndexModule: React.FC = () => {
         </div>
         <div className="mt-10 w-full flex flex-col gap-6">
           <MessageCard
-            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
             username="username"
             date="04-02-2023"
             isAuthor={true}
