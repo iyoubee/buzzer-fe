@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Toaster } from 'react-hot-toast'
 import { Error, SpinElipse, Success } from '@icons'
+import { Navbar } from '@elements'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -45,7 +46,12 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       />
-      <Component {...pageProps} />
+      <div className="bg-backgroundColor w-full min-h-screen flex justify-center">
+        <div className=" min-h-screen max-w-[1440px] w-full items-center flex flex-col">
+          <Navbar />
+          <Component {...pageProps} />
+        </div>
+      </div>
     </>
   )
 }
