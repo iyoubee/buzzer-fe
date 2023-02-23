@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar } from '@elements'
+import { Button, Navbar } from '@elements'
 import Head from 'next/head'
 
 export const IndexModule: React.FC = () => {
@@ -23,11 +23,14 @@ export const IndexModule: React.FC = () => {
                 @username
               </p>
             </div>
-            <div className="mt-10">
+            <div className="mt-10 flex w-full gap-3">
               <textarea
-                className="h-[189.82px] w-full resize-none rounded-md p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow"
+                className="h-[189.82px] w-8/12 resize-none rounded-md p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow font-plusJakartaSansBold"
                 placeholder="What’s happening?"
               />
+              <div className="w-4/12">
+                <Button className="w-full">asdas</Button>
+              </div>
             </div>
           </div>
         </div>
