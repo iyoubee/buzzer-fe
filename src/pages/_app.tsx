@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       />
-      <div className="bg-backgroundColor w-full min-h-screen flex justify-center">
+      <div className="bg-backgroundColor w-full min-h-screen flex justify-center pb-10">
         <div className=" min-h-screen max-w-[1440px] w-full items-center flex flex-col">
           <Navbar />
           <Component {...pageProps} />

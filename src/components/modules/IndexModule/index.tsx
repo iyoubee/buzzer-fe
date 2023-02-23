@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@elements'
+import { Button, MessageCard } from '@elements'
 import Head from 'next/head'
 import { PaperPlane, People } from '@icons'
 
@@ -33,8 +33,35 @@ export const IndexModule: React.FC = () => {
             </Button>
           </div>
         </div>
+        <div className="mt-10 w-full flex flex-col gap-6">
+          <MessageCard
+            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+            username="username"
+            date="04-02-2023"
+            isAuthor={true}
+          />
+          <MessageCard
+            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+            username="username"
+            date="04-02-2023"
+            isAuthor={true}
+          />
+          <MessageCard
+            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+            username="username"
+            date="04-02-2023"
+            isAuthor={true}
+          />
+          <MessageCard
+            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+            username="username"
+            date="04-02-2023"
+            isAuthor={true}
+          />
+        </div>
       </div>
-      <div className="h-screen"></div>
+
+      {/* <div className="h-screen"></div> */}
     </>
   )
 }
