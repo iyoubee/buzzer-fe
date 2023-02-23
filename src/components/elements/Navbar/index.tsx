@@ -12,7 +12,7 @@ export const Navbar: React.FC = () => {
           </p>
         </div>
         <div>
-          <p className="font-poppinsBold text-white max-w-[150px] border border-red-500 tracking-wide cursor-pointer md:text-lg text-base text-ellipsis overflow-hidden">
+          <p className="font-poppinsBold text-white max-w-[150px] tracking-wide cursor-pointer md:text-lg text-base text-ellipsis overflow-hidden">
             username
           </p>
         </div>
