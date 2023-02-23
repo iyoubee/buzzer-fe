@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Navbar } from '@elements'
 import Head from 'next/head'
+import { PaperPlane, People } from '@icons'
 
 export const IndexModule: React.FC = () => {
   return (
@@ -28,8 +29,13 @@ export const IndexModule: React.FC = () => {
                 className="h-[189.82px] w-8/12 resize-none rounded-md p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow font-plusJakartaSansBold"
                 placeholder="What’s happening?"
               />
-              <div className="w-4/12">
-                <Button className="w-full">asdas</Button>
+              <div className="w-4/12 flex flex-col gap-4 h-auto justify-end">
+                <Button className="w-full gap-2">
+                  Edit Close Friends <People />
+                </Button>
+                <Button className="w-full gap-2">
+                  Post <PaperPlane />
+                </Button>
               </div>
             </div>
           </div>
