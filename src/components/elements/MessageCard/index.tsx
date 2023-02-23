@@ -11,8 +11,8 @@ export const MessageCard: React.FC<MessageCardProps> = ({
   return (
     <>
       <div className="w-full rounded-2xl bg-gradient-to-b from-cardGradientFrom to-cardGradientTo p-5 text-white shadow-md shadow-[#1D2E4E]">
-        <div className="flex justify-between items-end">
-          <div className="flex gap-2 items-center justify-center">
+        <div className="flex justify-between items-start">
+          <div className="flex gap-2 flex-col lg:flex-row lg:items-center lg:justify-center">
             <button>
               <p className="font-poppinsBold text-[18px]">{username}</p>
             </button>
