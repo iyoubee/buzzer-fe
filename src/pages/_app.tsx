@@ -3,57 +3,60 @@ import type { AppProps } from 'next/app'
 import { Toaster } from 'react-hot-toast'
 import { Error, SpinElipse, Success } from '@icons'
 import { Navbar } from '@elements'
+import { AuthContextProvider } from '@contexts'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        gutter={8}
-        toastOptions={{
-          className: '',
-          style: {
-            background: '#363636',
-            color: '#fff',
-          },
-          loading: {
+      <AuthContextProvider>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          gutter={8}
+          toastOptions={{
+            className: '',
             style: {
-              fontFamily: 'Poppins',
-              background: '#2F7A84',
-              border: '2px solid #6DB8C2',
-              color: '#F3E2CE',
+              background: '#363636',
+              color: '#fff',
             },
-            icon: <SpinElipse />,
-          },
-          success: {
-            style: {
-              fontFamily: 'PoppinsBold',
-              background: '#A3AA10',
-              border: '2px solid #C7CC70',
-              color: '#F4EFD3',
+            loading: {
+              style: {
+                fontFamily: 'Poppins',
+                background: '#2F7A84',
+                border: '2px solid #6DB8C2',
+                color: '#F3E2CE',
+              },
+              icon: <SpinElipse />,
             },
-            icon: <Success />,
-          },
-          error: {
-            style: {
-              fontFamily: 'PoppinsBold',
-              background: '#A33233',
-              border: '2px solid #CA5355',
-              color: '#F4EFD3',
+            success: {
+              style: {
+                fontFamily: 'PoppinsBold',
+                background: '#A3AA10',
+                border: '2px solid #C7CC70',
+                color: '#F4EFD3',
+              },
+              icon: <Success />,
             },
-            icon: <Error />,
-          },
-        }}
-      />
-      <div className="bg-backgroundColor w-full min-h-screen flex justify-center pb-10">
-        <div className=" min-h-screen max-w-[1440px] w-full items-center flex flex-col">
-          <Navbar />
-          <div className="md:w-1/2 w-full p-5 lg:p-0">
-            <Component {...pageProps} />
+            error: {
+              style: {
+                fontFamily: 'PoppinsBold',
+                background: '#A33233',
+                border: '2px solid #CA5355',
+                color: '#F4EFD3',
+              },
+              icon: <Error />,
+            },
+          }}
+        />
+        <div className="bg-backgroundColor w-full min-h-screen flex justify-center pb-10">
+          <div className=" min-h-screen max-w-[1440px] w-full items-center flex flex-col">
+            <Navbar />
+            <div className="md:w-1/2 w-full p-5 lg:p-0">
+              <Component {...pageProps} />
+            </div>
           </div>
         </div>
-      </div>
+      </AuthContextProvider>
     </>
   )
 }

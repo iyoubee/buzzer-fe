@@ -1,3 +1,5 @@
 export * from './Navbar'
 export * from './Button'
 export * from './MessageCard'
+export * from './LoginModal'
+export * from './RegisterModal'
