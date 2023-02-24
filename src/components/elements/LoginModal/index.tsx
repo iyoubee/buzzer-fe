@@ -3,6 +3,7 @@ import { Transition, Dialog } from '@headlessui/react'
 import { LoginModalProps } from './interface'
 import { useForm } from 'react-hook-form'
 import { useAuthContext } from '@contexts'
+// import { toast } from 'react-hot-toast'
 
 export const LoginModal: React.FC<LoginModalProps> = ({
   isOpen,
@@ -22,7 +23,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
   const { login } = useAuthContext()
   const onLogin = (data: any) => {
-    login(data.username, data.password)
+    login(data.username, data.password).finally(() => {
+      closeModalLogin()
+    })
   }
 
   return (

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { AuthContextProps, ContextProviderProps } from './interface'
 
 const AuthContext = createContext({} as AuthContextProps) // TODO: Declare interface of contextValue
@@ -14,7 +15,6 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   const [at, setAt] = useState('')
   const [username, setUsername] = useState('')
 
-  console.log(at)
   const getUserData = async (at: string) => {
     const userData = await axios.get(
       `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/getUser`,
@@ -59,6 +59,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   }, [])
 
   const login = async (username: string, password: string) => {
+    const id = toast.loading('Loading...')
     const params = new URLSearchParams()
     params.append('username', username)
     params.append('password', password)
@@ -77,7 +78,41 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       setAt(res.data?.access_token)
       setIsLogged(true)
       getUserData(res.data?.access_token)
+      toast.success('Berhasil login.', { id: id })
     } catch (error) {
+      toast.error('Ada masalah.', { id: id })
+      console.log(error)
+    }
+  }
+
+  const register = async (
+    email: string,
+    username: string,
+    password: string
+  ) => {
+    const id = toast.loading('Loading...')
+    const params = new URLSearchParams()
+    params.append('email', email)
+    params.append('username', username)
+    params.append('password', password)
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/local/signup/`,
+        params,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
+      localStorage.setItem('buzzer_refreshToken', res.data?.refresh_token)
+      setAt(res.data?.access_token)
+      setIsLogged(true)
+      getUserData(res.data?.access_token)
+      toast.success('Berhasil register.', { id: id })
+    } catch (error) {
+      toast.error('Ada masalah.', { id: id })
       console.log(error)
     }
   }
@@ -97,6 +132,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     if (res.data) {
       localStorage.removeItem('buzzer_refreshToken')
       setIsLogged(false)
+      toast.success('Berhasil logout.')
     }
   }
 
@@ -106,6 +142,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     isLogged,
     at,
     login,
+    register,
     username,
     logout,
   }
