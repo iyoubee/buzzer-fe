@@ -136,6 +136,29 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     }
   }
 
+  const sendPublicMessage = async (message: string) => {
+    const id = toast.loading('Loading...')
+    const params = new URLSearchParams()
+    params.append('message', message)
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/post/message/public`,
+        params,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer ' + at,
+          },
+        }
+      )
+      toast.success('Berhasil post.', { id: id })
+    } catch (error) {
+      toast.error('Ada masalah.', { id: id })
+      console.log(error)
+    }
+  }
+
   const contextValue = {
     loading,
     setLoading,
@@ -145,6 +168,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     register,
     username,
     logout,
+    sendPublicMessage,
   }
 
   return (

@@ -13,4 +13,5 @@ export interface AuthContextProps {
   register: (email: string, username: string, password: string) => Promise<void>
   username: string
   logout: () => Promise<void>
+  sendPublicMessage: (message: string) => Promise<void>
 }
