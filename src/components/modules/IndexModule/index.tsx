@@ -12,55 +12,52 @@ export const IndexModule: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="md:w-1/2 w-full p-5 lg:p-0">
-        <div className="gap-4 flex flex-col">
-          <p className="font-poppinsBold text-white text-4xl">Welcome back,</p>
-          <p className="font-poppinsBold text-blueOnBackgroud text-4xl">
-            @username
-          </p>
-        </div>
-        <div className="mt-10 flex flex-col lg:flex-row w-full gap-3">
-          <textarea
-            className="h-[189.82px] lg:w-8/12 w-full resize-none rounded-md p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow font-plusJakartaSansBold"
-            placeholder="What's happening?"
-          />
-          <div className="lg:w-4/12 w-full flex flex-col gap-4 h-auto justify-end">
-            <Button className="w-full gap-2">
-              Edit Close Friends <People />
-            </Button>
-            <Button className="w-full gap-2">
-              Post <PaperPlane />
-            </Button>
-          </div>
-        </div>
-        <div className="mt-10 w-full flex flex-col gap-6">
-          <MessageCard
-            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-            username="username"
-            date="04-02-2023"
-            isAuthor={true}
-          />
-          <MessageCard
-            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-            username="username"
-            date="04-02-2023"
-            isAuthor={true}
-          />
-          <MessageCard
-            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-            username="username"
-            date="04-02-2023"
-            isAuthor={true}
-          />
-          <MessageCard
-            message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-            username="username"
-            date="04-02-2023"
-            isAuthor={true}
-          />
+      <div className="gap-4 flex flex-col">
+        <p className="font-poppinsBold text-white text-4xl">Welcome back,</p>
+        <p className="font-poppinsBold text-blueOnBackgroud text-4xl">
+          @username
+        </p>
+      </div>
+      <div className="mt-10 flex flex-col lg:flex-row w-full gap-3">
+        <textarea
+          className="h-[189.82px] lg:w-8/12 w-full resize-none rounded-md p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow font-plusJakartaSansBold"
+          placeholder="What's happening?"
+        />
+        <div className="lg:w-4/12 w-full flex flex-col gap-4 h-auto justify-end">
+          <Button className="w-full gap-2">
+            Edit Close Friends <People />
+          </Button>
+          <Button className="w-full gap-2">
+            Post <PaperPlane />
+          </Button>
         </div>
       </div>
-
+      <div className="mt-10 w-full flex flex-col gap-6">
+        <MessageCard
+          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+          username="username"
+          date="04-02-2023"
+          isAuthor={true}
+        />
+        <MessageCard
+          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+          username="username"
+          date="04-02-2023"
+          isAuthor={true}
+        />
+        <MessageCard
+          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+          username="username"
+          date="04-02-2023"
+          isAuthor={true}
+        />
+        <MessageCard
+          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
+          username="username"
+          date="04-02-2023"
+          isAuthor={true}
+        />
+      </div>
       {/* <div className="h-screen"></div> */}
     </>
   )

@@ -1,17 +1,20 @@
 import { Menu, Transition } from '@headlessui/react'
 import { ArrowLeft, Home, RistekIcon, User } from '@icons'
 import React, { Fragment } from 'react'
+import Link from 'next/link'
 
 export const Navbar: React.FC = () => {
   return (
     <>
       <div className="sticky top-0 z-50 w-full h-fit justify-between flex items-center md:px-10 px-3 md:py-5 py-1 bg-backgroundColor">
-        <div className="flex gap-5 items-center cursor-pointer">
-          <RistekIcon className="scale-50 md:scale-100" />
-          <p className="font-poppinsBold text-white text-2xl hidden md:block">
-            RISTEK MedSOS
-          </p>
-        </div>
+        <Link href={'/'}>
+          <div className="flex gap-5 items-center cursor-pointer">
+            <RistekIcon className="scale-50 md:scale-100" />
+            <p className="font-poppinsBold text-white text-2xl hidden md:block">
+              RISTEK MedSOS
+            </p>
+          </div>
+        </Link>
         <div>
           <Menu as="div" className="relative inline-block text-left">
             <div>
