@@ -14,6 +14,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   const [isLogged, setIsLogged] = useState(false)
   const [at, setAt] = useState('')
   const [username, setUsername] = useState('')
+  const [closeFriends, setCloseFriends] = useState<number[]>()
 
   const getUserData = async (at: string) => {
     const userData = await axios.get(
@@ -27,6 +28,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       }
     )
     setUsername(userData.data?.username)
+    setCloseFriends(userData.data?.closeFriends)
   }
 
   useEffect(() => {
@@ -130,6 +132,9 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       }
     )
     if (res.data) {
+      setAt('')
+      setUsername('')
+      setCloseFriends([])
       localStorage.removeItem('buzzer_refreshToken')
       setIsLogged(false)
       toast.success('Berhasil logout.')
@@ -159,6 +164,29 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     }
   }
 
+  const sendPrivateMessage = async (message: string) => {
+    const id = toast.loading('Loading...')
+    const params = new URLSearchParams()
+    params.append('message', message)
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/post/message/private`,
+        params,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer ' + at,
+          },
+        }
+      )
+      toast.success('Berhasil post.', { id: id })
+    } catch (error) {
+      toast.error('Ada masalah.', { id: id })
+      console.log(error)
+    }
+  }
+
   const contextValue = {
     loading,
     setLoading,
@@ -169,6 +197,8 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     username,
     logout,
     sendPublicMessage,
+    sendPrivateMessage,
+    closeFriends,
   }
 
   return (

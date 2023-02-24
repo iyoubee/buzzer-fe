@@ -6,15 +6,25 @@ import { useAuthContext } from '@contexts'
 import { useForm } from 'react-hook-form'
 
 export const IndexModule: React.FC = () => {
-  const { isLogged, username, sendPublicMessage } = useAuthContext()
-
   const [isCloseFriend, setIsCloseFriend] = useState(false)
+
+  const {
+    isLogged,
+    username,
+    sendPublicMessage,
+    closeFriends,
+    sendPrivateMessage,
+  } = useAuthContext()
 
   const { register, watch } = useForm()
 
   const handlePost = () => {
-    sendPublicMessage(watch('message'))
+    isCloseFriend
+      ? sendPrivateMessage(watch('message'))
+      : sendPublicMessage(watch('message'))
   }
+
+  console.log(closeFriends)
   return (
     <>
       <Head>
