@@ -31,34 +31,32 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     setCloseFriends(userData.data?.closeFriends)
   }
 
-  useEffect(() => {
-    const rt = localStorage.getItem('buzzer_refreshToken')
-
-    const getAT = async (rt: string | null) => {
-      if (rt) {
-        try {
-          const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/refresh`,
-            {
-              headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                Authorization: 'Bearer ' + rt,
-              },
-            }
-          )
-          localStorage.setItem('buzzer_refreshToken', res.data?.refresh_token)
-          setAt(res.data?.access_token)
-          setIsLogged(true)
-          getUserData(res.data?.access_token)
-        } catch (error) {
-          console.log(error)
+  const getAllMessages = async () => {
+    if (isLogged) {
+      const userData = await axios.get(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getMessageAuth`,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer ' + at,
+          },
         }
-      }
+      )
+      return userData.data
+    } else {
+      const userData = await axios.get(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getMessage`,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
+      return userData.data
     }
-
-    getAT(rt)
-  }, [])
+  }
 
   const login = async (username: string, password: string) => {
     const id = toast.loading('Loading...')
@@ -187,6 +185,35 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     }
   }
 
+  useEffect(() => {
+    const rt = localStorage.getItem('buzzer_refreshToken')
+
+    const getAT = async (rt: string | null) => {
+      if (rt) {
+        try {
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/refresh/`,
+            {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: 'Bearer ' + rt,
+              },
+            }
+          )
+          localStorage.setItem('buzzer_refreshToken', res.data?.refresh_token)
+          setAt(res.data?.access_token)
+          getUserData(res.data?.access_token)
+          setIsLogged(true)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+
+    getAT(rt)
+  }, [])
+
   const contextValue = {
     loading,
     setLoading,
@@ -199,6 +226,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     sendPublicMessage,
     sendPrivateMessage,
     closeFriends,
+    getAllMessages,
   }
 
   return (

@@ -16,4 +16,5 @@ export interface AuthContextProps {
   sendPublicMessage: (message: string) => Promise<void>
   sendPrivateMessage: (message: string) => Promise<void>
   closeFriends: number[] | undefined
+  getAllMessages: () => Promise<any>
 }

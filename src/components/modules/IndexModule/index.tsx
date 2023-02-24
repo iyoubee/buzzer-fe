@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Checkbox, MessageCard } from '@elements'
 import Head from 'next/head'
 import { PaperPlane, People } from '@icons'
@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 
 export const IndexModule: React.FC = () => {
   const [isCloseFriend, setIsCloseFriend] = useState(false)
+  const [allMessages, setAllMessages] = useState([])
 
   const {
     isLogged,
@@ -14,6 +15,7 @@ export const IndexModule: React.FC = () => {
     sendPublicMessage,
     closeFriends,
     sendPrivateMessage,
+    getAllMessages,
   } = useAuthContext()
 
   const { register, watch } = useForm()
@@ -24,7 +26,16 @@ export const IndexModule: React.FC = () => {
       : sendPublicMessage(watch('message'))
   }
 
+  useEffect(() => {
+    getAllMessages().then((data) => {
+      setAllMessages(data)
+    })
+  }, [isLogged])
+
+  console.log(allMessages)
+
   console.log(closeFriends)
+
   return (
     <>
       <Head>
