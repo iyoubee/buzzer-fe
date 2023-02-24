@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, MessageCard } from '@elements'
+import React, { useState } from 'react'
+import { Button, Checkbox, MessageCard } from '@elements'
 import Head from 'next/head'
 import { PaperPlane, People } from '@icons'
 import { useAuthContext } from '@contexts'
@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form'
 
 export const IndexModule: React.FC = () => {
   const { isLogged, username, sendPublicMessage } = useAuthContext()
+
+  const [isCloseFriend, setIsCloseFriend] = useState(false)
 
   const { register, watch } = useForm()
 
@@ -38,6 +40,9 @@ export const IndexModule: React.FC = () => {
               {...register('message', { required: true })}
             />
             <div className="lg:w-4/12 w-full flex flex-col gap-4 h-auto justify-end">
+              <Checkbox selected={isCloseFriend} setSelected={setIsCloseFriend}>
+                Close Friend
+              </Checkbox>
               <Button className="w-full gap-2">
                 Edit Close Friends <People />
               </Button>
