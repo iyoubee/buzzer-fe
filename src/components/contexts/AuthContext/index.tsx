@@ -11,6 +11,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   children,
 }) => {
   const [loading, setLoading] = useState(false)
+  const [id, setId] = useState<number>()
   const [isLogged, setIsLogged] = useState(false)
   const [at, setAt] = useState('')
   const [username, setUsername] = useState('')
@@ -28,6 +29,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       }
     )
     setUsername(userData.data?.username)
+    setId(userData.data?.id)
     setCloseFriends(userData.data?.closeFriends)
   }
 
@@ -130,6 +132,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       }
     )
     if (res.data) {
+      setId(undefined)
       setAt('')
       setUsername('')
       setCloseFriends([])
@@ -227,6 +230,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     sendPrivateMessage,
     closeFriends,
     getAllMessages,
+    id,
   }
 
   return (

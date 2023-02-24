@@ -16,6 +16,7 @@ export const IndexModule: React.FC = () => {
     closeFriends,
     sendPrivateMessage,
     getAllMessages,
+    id,
   } = useAuthContext()
 
   const { register, watch } = useForm()
@@ -35,6 +36,8 @@ export const IndexModule: React.FC = () => {
   console.log(allMessages)
 
   console.log(closeFriends)
+
+  console.log(id)
 
   return (
     <>
