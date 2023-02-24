@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { ArrowLeft, Home, RistekIcon } from '@icons'
+import { ArrowLeft, Home, RistekIcon, User } from '@icons'
 import React, { Fragment } from 'react'
 
 export const Navbar: React.FC = () => {
@@ -40,6 +40,19 @@ export const Navbar: React.FC = () => {
                         } group flex w-full items-center rounded-md px-2 py-2 text-sm gap-2`}
                       >
                         <Home /> Home
+                      </button>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          active
+                            ? 'bg-blueOnBackgroud text-white'
+                            : 'text-gray-900'
+                        } group flex w-full items-center rounded-md px-2 py-2 text-sm gap-2`}
+                      >
+                        <User /> Edit Profile
                       </button>
                     )}
                   </Menu.Item>
