@@ -10,4 +10,6 @@ export interface AuthContextProps {
   isLogged: boolean
   at: string
   login: (username: string, password: string) => Promise<void>
+  username: string
+  logout: () => Promise<void>
 }

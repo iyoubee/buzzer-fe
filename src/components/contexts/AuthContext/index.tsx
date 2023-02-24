@@ -12,6 +12,22 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   const [loading, setLoading] = useState(false)
   const [isLogged, setIsLogged] = useState(false)
   const [at, setAt] = useState('')
+  const [username, setUsername] = useState('')
+
+  console.log(at)
+  const getUserData = async (at: string) => {
+    const userData = await axios.get(
+      `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/getUser`,
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer ' + at,
+        },
+      }
+    )
+    setUsername(userData.data?.username)
+  }
 
   useEffect(() => {
     const rt = localStorage.getItem('buzzer_refreshToken')
@@ -19,13 +35,20 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     const getAT = async (rt: string | null) => {
       if (rt) {
         try {
-          const res = await axios.post(
+          const res = await axios.get(
             `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/refresh`,
-            { rt }
+            {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: 'Bearer ' + rt,
+              },
+            }
           )
           localStorage.setItem('buzzer_refreshToken', res.data?.refresh_token)
           setAt(res.data?.access_token)
           setIsLogged(true)
+          getUserData(res.data?.access_token)
         } catch (error) {
           console.log(error)
         }
@@ -53,8 +76,27 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       localStorage.setItem('buzzer_refreshToken', res.data?.refresh_token)
       setAt(res.data?.access_token)
       setIsLogged(true)
+      getUserData(res.data?.access_token)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const logout = async () => {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/logout`,
+      {},
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer ' + at,
+        },
+      }
+    )
+    if (res.data) {
+      localStorage.removeItem('buzzer_refreshToken')
+      setIsLogged(false)
     }
   }
 
@@ -64,6 +106,8 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     isLogged,
     at,
     login,
+    username,
+    logout,
   }
 
   return (

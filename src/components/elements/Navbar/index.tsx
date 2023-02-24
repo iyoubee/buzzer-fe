@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
     setIsOpenModalRegister(true)
   }
 
-  const { isLogged } = useAuthContext()
+  const { isLogged, username, logout } = useAuthContext()
 
   return (
     <>
@@ -44,7 +44,7 @@ export const Navbar: React.FC = () => {
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="font-poppinsBold text-white max-w-[150px] tracking-wide cursor-pointer md:text-lg text-base text-ellipsis overflow-hidden">
-                  username
+                  {username}
                 </Menu.Button>
               </div>
               <Transition
@@ -87,6 +87,7 @@ export const Navbar: React.FC = () => {
                     <Menu.Item>
                       {({ active }) => (
                         <button
+                          onClick={logout}
                           className={`${
                             active
                               ? 'bg-blueOnBackgroud text-white'
