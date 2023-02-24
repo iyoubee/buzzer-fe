@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { useForm } from 'react-hook-form'
 import { Transition, Dialog } from '@headlessui/react'
 import { RegisterModalProps } from './interface'
+import { useAuthContext } from '@contexts'
 
 export const RegisterModal: React.FC<RegisterModalProps> = ({
   isOpen,
@@ -13,7 +14,13 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
     formState: { errors },
   } = useForm()
 
-  const onLogin = (data: any) => console.log(data)
+  const { register: regisAuth } = useAuthContext()
+
+  const onLogin = (data: any) => {
+    regisAuth(data.email, data.username, data.password).finally(() => {
+      onClose()
+    })
+  }
 
   return (
     <>
