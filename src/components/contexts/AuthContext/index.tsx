@@ -34,6 +34,20 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     setCloseFriends(userData.data?.closeFriending)
   }
 
+  const refreshCloseFriend = async () => {
+    const userData = await axios.get(
+      `${process.env.NEXT_PUBLIC_BE_DOMAIN}/auth/getUser`,
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer ' + at,
+        },
+      }
+    )
+    setCloseFriends(userData.data?.closeFriending)
+  }
+
   const getAllMessages = async () => {
     if (isLogged) {
       const userData = await axios.get(
@@ -217,6 +231,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
           },
         }
       )
+      refreshCloseFriend()
       toast.success('Berhasil ubah.', { id: id })
     } catch (error) {
       toast.error('Ada masalah.', { id: id })
@@ -237,6 +252,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
           },
         }
       )
+      refreshCloseFriend()
       toast.success('Berhasil ubah.', { id: id })
     } catch (error) {
       toast.error('Ada masalah.', { id: id })
@@ -290,6 +306,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     getAllUser,
     connectCloseFriends,
     disconnectCloseFriends,
+    refreshCloseFriend,
   }
 
   return (

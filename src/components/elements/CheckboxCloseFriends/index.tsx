@@ -1,5 +1,5 @@
 import { useAuthContext } from '@contexts'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CheckboxCloseFriendsProps } from './interface'
 
 export const CheckboxCloseFriends: React.FC<CheckboxCloseFriendsProps> = ({
@@ -18,8 +18,6 @@ export const CheckboxCloseFriends: React.FC<CheckboxCloseFriendsProps> = ({
     selected ? disconnectCloseFriends(id) : connectCloseFriends(id)
     setSelected(!selected)
   }
-
-  useEffect(() => {}, [selected])
 
   return (
     <>
