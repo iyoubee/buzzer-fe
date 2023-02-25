@@ -83,6 +83,9 @@ export const Navbar: React.FC = () => {
                               ? 'bg-blueOnBackgroud text-white'
                               : 'text-gray-900'
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm gap-2`}
+                          onClick={() => {
+                            router.push('/edit')
+                          }}
                         >
                           <User /> Edit Profile
                         </button>

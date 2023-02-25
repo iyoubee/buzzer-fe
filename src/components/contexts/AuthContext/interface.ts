@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios'
 import { ReactNode } from 'react'
 
 export interface ContextProviderProps {
@@ -9,6 +10,7 @@ export interface AuthContextProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
   isLogged: boolean
   at: string
+  bio: string
   login: (username: string, password: string) => Promise<void>
   register: (email: string, username: string, password: string) => Promise<void>
   username: string
@@ -25,4 +27,6 @@ export interface AuthContextProps {
   getMessages: (username: string) => Promise<any>
   editMessage: (message: string, messageId: string) => Promise<void>
   deleteMessage: (messageId: string) => Promise<void>
+  editUser: (username: string, bio: string) => Promise<void>
+  getSimple: (username: string) => Promise<AxiosResponse<any, any>>
 }

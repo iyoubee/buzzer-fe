@@ -17,8 +17,17 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   const [at, setAt] = useState('')
   const [username, setUsername] = useState('')
   const [closeFriends, setCloseFriends] = useState<any[]>([])
+  const [bio, setBio] = useState('')
 
   const router = useRouter()
+
+  const getSimple = async (username: string) => {
+    const user = await axios.get(
+      `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/simple/${username}`
+    )
+
+    return user
+  }
 
   const getUserData = async (at: string) => {
     const userData = await axios.get(
@@ -34,7 +43,24 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     console.log('context', userData)
     setUsername(userData.data?.username)
     setId(userData.data?.id)
+    setBio(userData.data?.bio)
     setCloseFriends(userData.data?.closeFriending)
+  }
+
+  const editUser = async (username: string, bio: string) => {
+    const id = toast.loading('Loading...')
+    const params = new URLSearchParams()
+    params.append('username', username)
+    params.append('bio', bio)
+    await axios.put(`${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/edit`, params, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer ' + at,
+      },
+    })
+    getUserData(at)
+    toast.success('Berhasil edit.', { id: id })
   }
 
   const refreshCloseFriend = async () => {
@@ -390,6 +416,9 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     getMessages,
     deleteMessage,
     editMessage,
+    bio,
+    editUser,
+    getSimple,
   }
 
   return (

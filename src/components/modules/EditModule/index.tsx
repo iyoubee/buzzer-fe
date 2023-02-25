@@ -1,3 +1,5 @@
+import { useAuthContext } from '@contexts'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -6,12 +8,17 @@ export const EditModule: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data: any) => console.log(data)
 
-  console.log(watch('example')) // watch input value by passing the name of it
+  const router = useRouter()
+
+  const { bio, username, editUser } = useAuthContext()
+  const onSubmit = (data: any) => {
+    editUser(data.username, data.bio)
+    router.replace('/')
+  }
+
   return (
     <>
       <div className="flex justify-center">
@@ -23,7 +30,7 @@ export const EditModule: React.FC = () => {
             <p className="font-poppinsBold text-white pl-2">Username</p>
             <input
               className=" w-full resize-none rounded-md p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow font-plusJakartaSansBold"
-              defaultValue="username"
+              defaultValue={username}
               {...register('username', { required: true })}
             />
             {errors.username && (
@@ -37,8 +44,7 @@ export const EditModule: React.FC = () => {
             <p className="font-poppinsBold text-white pl-2">Bio</p>
             <TextareaAutosize
               className=" w-full resize-none rounded-md p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow font-plusJakartaSansBold"
-              defaultValue="Lorem ipsum dolor sit amet consectetur. Leo sit vestibulum lacus
-          facilisis accumsan et nisi. Amet etiam eu dui quis nunc."
+              defaultValue={bio}
               spellCheck={false}
               {...register('bio', { required: true })}
             />

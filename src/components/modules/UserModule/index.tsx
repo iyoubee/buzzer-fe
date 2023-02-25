@@ -8,12 +8,17 @@ export const UserModule: React.FC = () => {
   const router = useRouter()
   const { username } = router.query
 
+  const [data, setData] = useState<any>()
+
   const [allMessages, setAllMessages] = useState([])
 
-  const { isLogged, getMessages, id } = useAuthContext()
+  const { isLogged, getMessages, id, getSimple } = useAuthContext()
 
   useEffect(() => {
     if (username) {
+      getSimple(username as string).then((x) => {
+        setData(x.data)
+      })
       getMessages(username as string).then((data) => {
         setAllMessages(data)
       })
@@ -30,11 +35,10 @@ export const UserModule: React.FC = () => {
       </Head>
       <div className="gap-4 flex flex-col">
         <p className="font-poppinsBold text-blueOnBackgroud text-4xl">
-          @{username}
+          @{data && data.username}
         </p>
         <p className="font-poppins text-white text-opacity-70">
-          Lorem ipsum dolor sit amet consectetur. Leo sit vestibulum lacus
-          facilisis accumsan et nisi. Amet etiam eu dui quis nunc.
+          {data && data.bio}
         </p>
       </div>
 
