@@ -1,1 +1,3 @@
-export interface props {}
+export interface CustomListBoxProps {
+  people: any[]
+}

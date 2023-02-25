@@ -15,7 +15,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   const [isLogged, setIsLogged] = useState(false)
   const [at, setAt] = useState('')
   const [username, setUsername] = useState('')
-  const [closeFriends, setCloseFriends] = useState<number[]>()
+  const [closeFriends, setCloseFriends] = useState<any[]>([])
 
   const getUserData = async (at: string) => {
     const userData = await axios.get(
@@ -28,9 +28,10 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
         },
       }
     )
+    console.log('context', userData)
     setUsername(userData.data?.username)
     setId(userData.data?.id)
-    setCloseFriends(userData.data?.closeFriends)
+    setCloseFriends(userData.data?.closeFriending)
   }
 
   const getAllMessages = async () => {
@@ -53,6 +54,21 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
           headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
+      return userData.data
+    }
+  }
+
+  const getAllUser = async () => {
+    if (at) {
+      const userData = await axios.get(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getUser/`,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer ' + at,
           },
         }
       )
@@ -231,6 +247,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     closeFriends,
     getAllMessages,
     id,
+    getAllUser,
   }
 
   return (

@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, MessageCard } from '@elements'
+import { Button, Checkbox, CloseFriendsModal, MessageCard } from '@elements'
 import Head from 'next/head'
 import { PaperPlane, People } from '@icons'
 import { useAuthContext } from '@contexts'
 import { useForm } from 'react-hook-form'
 
 export const IndexModule: React.FC = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false)
   const [isCloseFriend, setIsCloseFriend] = useState(false)
   const [allMessages, setAllMessages] = useState([])
+  const [allUser, setAllUser] = useState([])
+
+  function closeModal() {
+    setIsOpenModal(false)
+  }
+
+  function openModal() {
+    setIsOpenModal(true)
+  }
 
   const {
     isLogged,
@@ -17,6 +27,7 @@ export const IndexModule: React.FC = () => {
     sendPrivateMessage,
     getAllMessages,
     id,
+    getAllUser,
   } = useAuthContext()
 
   const { register, watch } = useForm()
@@ -31,11 +42,16 @@ export const IndexModule: React.FC = () => {
     getAllMessages().then((data) => {
       setAllMessages(data)
     })
+    getAllUser().then((data) => {
+      setAllUser(data)
+    })
   }, [isLogged])
 
   console.log(allMessages)
 
-  console.log(closeFriends)
+  console.log(allUser)
+
+  console.log('close', closeFriends)
 
   console.log(id)
 
@@ -67,7 +83,7 @@ export const IndexModule: React.FC = () => {
               <Checkbox selected={isCloseFriend} setSelected={setIsCloseFriend}>
                 Close Friend
               </Checkbox>
-              <Button className="w-full gap-2">
+              <Button className="w-full gap-2" onClick={openModal}>
                 Edit Close Friends <People />
               </Button>
               <Button className="w-full gap-2" onClick={handlePost}>
@@ -103,6 +119,11 @@ export const IndexModule: React.FC = () => {
           isAuthor={true}
         />
       </div>
+      <CloseFriendsModal
+        isOpen={isOpenModal}
+        onClose={closeModal}
+        data={allUser}
+      />
       {/* <div className="h-screen"></div> */}
     </>
   )
