@@ -251,6 +251,53 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     }
   }
 
+  const editMessage = async (message: string, messageId: string) => {
+    const id = toast.loading('Loading...')
+    const params = new URLSearchParams()
+    params.append('message', message)
+    params.append('messageId', messageId)
+    try {
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/post/edit`,
+        params,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer ' + at,
+          },
+        }
+      )
+      toast.success('Berhasil post.', { id: id })
+    } catch (error) {
+      toast.error('Ada masalah.', { id: id })
+      console.log(error)
+    }
+  }
+
+  const deleteMessage = async (messageId: string) => {
+    const id = toast.loading('Loading...')
+    const params = new URLSearchParams()
+    params.append('messageId', messageId)
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/post/delete`,
+        params,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer ' + at,
+          },
+        }
+      )
+      toast.success('Berhasil hapus.', { id: id })
+    } catch (error) {
+      toast.error('Ada masalah.', { id: id })
+      console.log(error)
+    }
+  }
+
   const connectCloseFriends = async (closeFriendsId: number) => {
     const id = toast.loading('Loading...')
     try {
@@ -341,6 +388,8 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     disconnectCloseFriends,
     refreshCloseFriend,
     getMessages,
+    deleteMessage,
+    editMessage,
   }
 
   return (

@@ -4,6 +4,8 @@ import { Button } from '../Button'
 import { MessageCardProps } from './interface'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useRouter } from 'next/router'
+import { useAuthContext } from '@contexts'
+import { useForm } from 'react-hook-form'
 
 export const MessageCard: React.FC<MessageCardProps> = ({
   date,
@@ -11,6 +13,8 @@ export const MessageCard: React.FC<MessageCardProps> = ({
   message,
   username,
   isCloseFriend,
+  id,
+  setAllMessages,
 }) => {
   const [toogleEdit, setToogleEdit] = useState(false)
 
@@ -19,6 +23,43 @@ export const MessageCard: React.FC<MessageCardProps> = ({
   const stringDate = date2.toUTCString()
 
   const router = useRouter()
+
+  const { username: uname } = router.query
+
+  const { register, watch } = useForm()
+
+  const { editMessage, deleteMessage, getMessages, getAllMessages } =
+    useAuthContext()
+
+  const handleDelete = () => {
+    deleteMessage(id).then((x) => {
+      if (uname) {
+        getMessages(uname as string).then((data) => {
+          setAllMessages(data)
+        })
+      } else {
+        getAllMessages().then((data) => {
+          setAllMessages(data)
+        })
+      }
+    })
+  }
+
+  const handleEdit = () => {
+    editMessage(watch('message'), id).then((x) => {
+      if (uname) {
+        getMessages(uname as string).then((data) => {
+          setAllMessages(data)
+          setToogleEdit(false)
+        })
+      } else {
+        getAllMessages().then((data) => {
+          setAllMessages(data)
+          setToogleEdit(false)
+        })
+      }
+    })
+  }
 
   return (
     <>
@@ -48,7 +89,7 @@ export const MessageCard: React.FC<MessageCardProps> = ({
               >
                 <PencilSquare />
               </button>
-              <button className="cursor-pointer">
+              <button className="cursor-pointer" onClick={handleDelete}>
                 <TrashCan />
               </button>
             </div>
@@ -57,12 +98,16 @@ export const MessageCard: React.FC<MessageCardProps> = ({
         {toogleEdit ? (
           <div className="flex flex-col items-end ">
             <TextareaAutosize
+              {...register('message', { required: true })}
               className="h-fit overflow-hidden w-full resize-none rounded-md mt-2 p-3 bg-backgroundColor border-2 border-blueOnBackgroud shadow-sm shadow-blueOnBackgroud text-white focus:outline-0 focus:shadow-lg focus:shadow-blueOnBackgroud transition-shadow font-plusJakartaSansBold"
               placeholder="What's happening?"
               defaultValue={message}
               spellCheck={false}
             />
-            <Button className="lg:max-w-[200px] w-full gap-2 text-black mt-3 ">
+            <Button
+              className="lg:max-w-[200px] w-full gap-2 text-black mt-3 "
+              onClick={handleEdit}
+            >
               Edit <PaperPlane />
             </Button>
           </div>

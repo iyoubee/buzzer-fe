@@ -99,38 +99,16 @@ export const IndexModule: React.FC = () => {
         {allMessages.length != 0 &&
           allMessages.map((message: any) => (
             <MessageCard
+              id={message.id}
               message={message.message}
               date={message.updatedAt}
               key={message.id}
               username={message?.author?.username}
               isAuthor={message?.author?.id == id}
               isCloseFriend={message.isCloseFriends}
+              setAllMessages={setAllMessages}
             />
           ))}
-        {/* <MessageCard
-          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-          username="username"
-          date="04-02-2023"
-          isAuthor={true}
-        />
-        <MessageCard
-          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-          username="username"
-          date="04-02-2023"
-          isAuthor={true}
-        />
-        <MessageCard
-          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-          username="username"
-          date="04-02-2023"
-          isAuthor={true}
-        />
-        <MessageCard
-          message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
-          username="username"
-          date="04-02-2023"
-          isAuthor={true}
-        /> */}
       </div>
       <CloseFriendsModal
         isOpen={isOpenModal}
@@ -138,7 +116,6 @@ export const IndexModule: React.FC = () => {
         data={allUser}
         closeFriends={closeFriends}
       />
-      {/* <div className="h-screen"></div> */}
     </>
   )
 }
