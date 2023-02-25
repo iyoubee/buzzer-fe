@@ -7,6 +7,7 @@ export const CloseFriendsModal: React.FC<CloseFriendsModalProps> = ({
   isOpen,
   onClose,
   data,
+  closeFriends,
 }) => {
   return (
     <>
@@ -39,7 +40,7 @@ export const CloseFriendsModal: React.FC<CloseFriendsModalProps> = ({
                   <p className="text-center w-full text-white font-poppinsBold my-2">
                     Edit Close Friends
                   </p>
-                  <CustomListbox people={data} />
+                  <CustomListbox people={data} closeFriends={closeFriends} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

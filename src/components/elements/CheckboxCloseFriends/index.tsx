@@ -4,10 +4,11 @@ import { CheckboxCloseFriendsProps } from './interface'
 
 export const CheckboxCloseFriends: React.FC<CheckboxCloseFriendsProps> = ({
   id,
+  isSelected,
   children,
 }) => {
   const { id: authId } = useAuthContext()
-  const [selected, setSelected] = useState(false)
+  const [selected, setSelected] = useState(isSelected ? true : false)
   return (
     <>
       <div

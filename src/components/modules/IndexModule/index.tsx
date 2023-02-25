@@ -123,6 +123,7 @@ export const IndexModule: React.FC = () => {
         isOpen={isOpenModal}
         onClose={closeModal}
         data={allUser}
+        closeFriends={closeFriends}
       />
       {/* <div className="h-screen"></div> */}
     </>

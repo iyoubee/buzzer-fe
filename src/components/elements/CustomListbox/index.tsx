@@ -5,7 +5,10 @@ import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { CustomListBoxProps } from './interface'
 import { CheckboxCloseFriends } from '../CheckboxCloseFriends'
 
-export const CustomListbox: React.FC<CustomListBoxProps> = ({ people }) => {
+export const CustomListbox: React.FC<CustomListBoxProps> = ({
+  people,
+  closeFriends,
+}) => {
   const [selectedPeople, setSelectedPeople] = useState<any[]>([])
 
   return (
@@ -30,7 +33,11 @@ export const CustomListbox: React.FC<CustomListBoxProps> = ({ people }) => {
             >
               <Listbox.Options className=" mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm flex flex-col gap-0">
                 {people.map((person) => (
-                  <CheckboxCloseFriends key={person.id} id={person.id}>
+                  <CheckboxCloseFriends
+                    key={person.id}
+                    id={person.id}
+                    isSelected={closeFriends.find((x) => x.id == person.id)}
+                  >
                     {person.username}
                   </CheckboxCloseFriends>
                 ))}
