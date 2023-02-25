@@ -9,18 +9,28 @@ export const MessageCard: React.FC<MessageCardProps> = ({
   isAuthor,
   message,
   username,
+  isCloseFriend,
 }) => {
   const [toogleEdit, setToogleEdit] = useState(false)
 
+  const date2 = new Date(date)
+
+  const stringDate = date2.toUTCString()
   return (
     <>
-      <div className="h-auto w-full rounded-2xl bg-gradient-to-b from-cardGradientFrom to-cardGradientTo p-5 text-white shadow-md shadow-[#1D2E4E] ">
+      <div
+        className={`h-auto w-full rounded-2xl bg-gradient-to-b ${
+          isCloseFriend
+            ? 'from-[#114d00] to-[#061a00]'
+            : 'from-cardGradientFrom to-cardGradientTo'
+        } p-5 text-white shadow-md shadow-[#1D2E4E]`}
+      >
         <div className="flex justify-between items-start ">
-          <div className="flex gap-2 flex-col lg:flex-row lg:items-center lg:justify-center">
+          <div className="flex gap-2 flex-col lg:flex-row lg:items-center lg:justify-center justify-start items-start">
             <button>
               <p className="font-poppinsBold text-[18px]">{username}</p>
             </button>
-            <p className="font-poppins opacity-70 text-[12px]">{date}</p>
+            <p className="font-poppins opacity-70 text-[12px]">{stringDate}</p>
           </div>
           {isAuthor && (
             <div className="flex gap-3 ">

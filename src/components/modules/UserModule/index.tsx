@@ -1,4 +1,4 @@
-import { MessageCard } from '@elements'
+// import { MessageCard } from '@elements'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -26,7 +26,7 @@ export const UserModule: React.FC = () => {
       </div>
 
       <div className="mt-10 w-full flex flex-col gap-6">
-        <MessageCard
+        {/* <MessageCard
           message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
           username="username"
           date="04-02-2023"
@@ -49,7 +49,7 @@ export const UserModule: React.FC = () => {
           username="username"
           date="04-02-2023"
           isAuthor={true}
-        />
+        /> */}
       </div>
 
       {/* <div className="h-screen"></div> */}

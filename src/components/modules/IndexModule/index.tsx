@@ -30,12 +30,22 @@ export const IndexModule: React.FC = () => {
     getAllUser,
   } = useAuthContext()
 
-  const { register, watch } = useForm()
+  const { register, watch, reset } = useForm()
 
   const handlePost = () => {
     isCloseFriend
-      ? sendPrivateMessage(watch('message'))
-      : sendPublicMessage(watch('message'))
+      ? sendPrivateMessage(watch('message')).then((x) => {
+          reset({ message: '' })
+          getAllMessages().then((data) => {
+            setAllMessages(data)
+          })
+        })
+      : sendPublicMessage(watch('message')).then((x) => {
+          reset({ message: '' })
+          getAllMessages().then((data) => {
+            setAllMessages(data)
+          })
+        })
   }
 
   useEffect(() => {
@@ -46,14 +56,6 @@ export const IndexModule: React.FC = () => {
       setAllUser(data)
     })
   }, [isLogged])
-
-  console.log(allMessages)
-
-  console.log(allUser)
-
-  console.log('close', closeFriends)
-
-  console.log(id)
 
   return (
     <>
@@ -94,7 +96,18 @@ export const IndexModule: React.FC = () => {
         </>
       )}
       <div className="mt-10 w-full flex flex-col gap-6">
-        <MessageCard
+        {allMessages.length != 0 &&
+          allMessages.map((message: any) => (
+            <MessageCard
+              message={message.message}
+              date={message.updatedAt}
+              key={message.id}
+              username={message?.author?.username}
+              isAuthor={message?.author?.id == id}
+              isCloseFriend={message.isCloseFriends}
+            />
+          ))}
+        {/* <MessageCard
           message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
           username="username"
           date="04-02-2023"
@@ -117,7 +130,7 @@ export const IndexModule: React.FC = () => {
           username="username"
           date="04-02-2023"
           isAuthor={true}
-        />
+        /> */}
       </div>
       <CloseFriendsModal
         isOpen={isOpenModal}

@@ -49,6 +49,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   }
 
   const getAllMessages = async () => {
+    console.log('islogged', isLogged)
     if (isLogged) {
       const userData = await axios.get(
         `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getMessageAuth`,
