@@ -204,6 +204,46 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     }
   }
 
+  const connectCloseFriends = async (closeFriendsId: number) => {
+    const id = toast.loading('Loading...')
+    try {
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/closeFriends/connect`,
+        { closeFriendsId: closeFriendsId },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + at,
+          },
+        }
+      )
+      toast.success('Berhasil ubah.', { id: id })
+    } catch (error) {
+      toast.error('Ada masalah.', { id: id })
+      console.log(error)
+    }
+  }
+
+  const disconnectCloseFriends = async (closeFriendsId: number) => {
+    const id = toast.loading('Loading...')
+    try {
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/closeFriends/disconnect`,
+        { closeFriendsId: closeFriendsId },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + at,
+          },
+        }
+      )
+      toast.success('Berhasil ubah.', { id: id })
+    } catch (error) {
+      toast.error('Ada masalah.', { id: id })
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     const rt = localStorage.getItem('buzzer_refreshToken')
 
@@ -248,6 +288,8 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     getAllMessages,
     id,
     getAllUser,
+    connectCloseFriends,
+    disconnectCloseFriends,
   }
 
   return (

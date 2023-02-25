@@ -1,5 +1,5 @@
 import { useAuthContext } from '@contexts'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CheckboxCloseFriendsProps } from './interface'
 
 export const CheckboxCloseFriends: React.FC<CheckboxCloseFriendsProps> = ({
@@ -7,8 +7,20 @@ export const CheckboxCloseFriends: React.FC<CheckboxCloseFriendsProps> = ({
   isSelected,
   children,
 }) => {
-  const { id: authId } = useAuthContext()
   const [selected, setSelected] = useState(isSelected ? true : false)
+  const {
+    id: authId,
+    connectCloseFriends,
+    disconnectCloseFriends,
+  } = useAuthContext()
+
+  const handleClick = () => {
+    selected ? disconnectCloseFriends(id) : connectCloseFriends(id)
+    setSelected(!selected)
+  }
+
+  useEffect(() => {}, [selected])
+
   return (
     <>
       <div
@@ -17,7 +29,7 @@ export const CheckboxCloseFriends: React.FC<CheckboxCloseFriendsProps> = ({
         }`}
       >
         <div
-          onClick={() => setSelected(!selected)}
+          onClick={handleClick}
           className={`h-5 w-5 cursor-pointer rounded-xl border-2 border-primary ${
             selected && 'bg-white'
           } flex items-center justify-center rounded-sm transition-all group-hover:bg-orange-normal`}
@@ -42,7 +54,7 @@ export const CheckboxCloseFriends: React.FC<CheckboxCloseFriendsProps> = ({
         </div>
         <p
           className="font-poppins text-label-large font-extrabold text-primary w-full"
-          onClick={() => setSelected(!selected)}
+          onClick={handleClick}
         >
           {children}
         </p>

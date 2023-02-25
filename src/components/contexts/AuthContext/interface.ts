@@ -19,4 +19,6 @@ export interface AuthContextProps {
   getAllMessages: () => Promise<any>
   id: number | undefined
   getAllUser: () => Promise<any>
+  connectCloseFriends: (closeFriendsId: number) => Promise<void>
+  disconnectCloseFriends: (closeFriendsId: number) => Promise<void>
 }
