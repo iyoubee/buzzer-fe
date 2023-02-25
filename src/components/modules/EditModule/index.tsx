@@ -13,15 +13,11 @@ export const EditModule: React.FC = () => {
 
   const router = useRouter()
 
-  const { bio, username, editUser, isLogged } = useAuthContext()
+  const { bio, username, editUser } = useAuthContext()
   const onSubmit = (data: any) => {
     editUser(data.username, data.bio).then((x) => {
       router.replace('/')
     })
-  }
-
-  if (!isLogged) {
-    router.replace('/')
   }
 
   return (
