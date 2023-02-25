@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { AuthContextProps, ContextProviderProps } from './interface'
@@ -16,6 +17,8 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   const [at, setAt] = useState('')
   const [username, setUsername] = useState('')
   const [closeFriends, setCloseFriends] = useState<any[]>([])
+
+  const router = useRouter()
 
   const getUserData = async (at: string) => {
     const userData = await axios.get(
@@ -49,7 +52,6 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
   }
 
   const getAllMessages = async () => {
-    console.log('islogged', isLogged)
     if (isLogged) {
       const userData = await axios.get(
         `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getMessageAuth`,
@@ -65,6 +67,33 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     } else {
       const userData = await axios.get(
         `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getMessage`,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
+      return userData.data
+    }
+  }
+
+  const getMessages = async (username: string) => {
+    if (isLogged) {
+      const userData = await axios.get(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getMessageAuthed/${username}`,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer ' + at,
+          },
+        }
+      )
+      return userData.data
+    } else {
+      const userData = await axios.get(
+        `${process.env.NEXT_PUBLIC_BE_DOMAIN}/user/getMessage/${username}`,
         {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -111,6 +140,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       setAt(res.data?.access_token)
       setIsLogged(true)
       getUserData(res.data?.access_token)
+      router.push('/')
       toast.success('Berhasil login.', { id: id })
     } catch (error) {
       toast.error('Ada masalah.', { id: id })
@@ -143,6 +173,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       setAt(res.data?.access_token)
       setIsLogged(true)
       getUserData(res.data?.access_token)
+      router.push('/')
       toast.success('Berhasil register.', { id: id })
     } catch (error) {
       toast.error('Ada masalah.', { id: id })
@@ -169,6 +200,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
       setCloseFriends([])
       localStorage.removeItem('buzzer_refreshToken')
       setIsLogged(false)
+      router.replace('/')
       toast.success('Berhasil logout.')
     }
   }
@@ -308,6 +340,7 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({
     connectCloseFriends,
     disconnectCloseFriends,
     refreshCloseFriend,
+    getMessages,
   }
 
   return (

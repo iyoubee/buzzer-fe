@@ -1,12 +1,25 @@
-// import { MessageCard } from '@elements'
+import { MessageCard } from '@elements'
+import { useAuthContext } from '@contexts'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const UserModule: React.FC = () => {
   const router = useRouter()
   const { username } = router.query
-  console.log(username)
+
+  const [allMessages, setAllMessages] = useState([])
+
+  const { isLogged, getMessages, id } = useAuthContext()
+
+  useEffect(() => {
+    if (username) {
+      getMessages(username as string).then((data) => {
+        setAllMessages(data)
+      })
+    }
+  }, [isLogged, username])
+
   return (
     <>
       <Head>
@@ -17,7 +30,7 @@ export const UserModule: React.FC = () => {
       </Head>
       <div className="gap-4 flex flex-col">
         <p className="font-poppinsBold text-blueOnBackgroud text-4xl">
-          @username
+          @{username}
         </p>
         <p className="font-poppins text-white text-opacity-70">
           Lorem ipsum dolor sit amet consectetur. Leo sit vestibulum lacus
@@ -26,6 +39,17 @@ export const UserModule: React.FC = () => {
       </div>
 
       <div className="mt-10 w-full flex flex-col gap-6">
+        {allMessages.length != 0 &&
+          allMessages.map((message: any) => (
+            <MessageCard
+              message={message.message}
+              date={message.updatedAt}
+              key={message.id}
+              username={message?.author?.username}
+              isAuthor={message?.author?.id == id}
+              isCloseFriend={message.isCloseFriends}
+            />
+          ))}
         {/* <MessageCard
           message="Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit.Lorem ipsum dolor sit amet consectetur. Varius vitae vitae odio placerat et velit."
           username="username"

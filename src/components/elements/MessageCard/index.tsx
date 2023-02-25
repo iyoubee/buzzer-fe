@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Button } from '../Button'
 import { MessageCardProps } from './interface'
 import TextareaAutosize from 'react-textarea-autosize'
+import { useRouter } from 'next/router'
 
 export const MessageCard: React.FC<MessageCardProps> = ({
   date,
@@ -16,6 +17,9 @@ export const MessageCard: React.FC<MessageCardProps> = ({
   const date2 = new Date(date)
 
   const stringDate = date2.toUTCString()
+
+  const router = useRouter()
+
   return (
     <>
       <div
@@ -27,7 +31,11 @@ export const MessageCard: React.FC<MessageCardProps> = ({
       >
         <div className="flex justify-between items-start ">
           <div className="flex gap-2 flex-col lg:flex-row lg:items-center lg:justify-center justify-start items-start">
-            <button>
+            <button
+              onClick={() => {
+                router.push(`/user/${username}`)
+              }}
+            >
               <p className="font-poppinsBold text-[18px]">{username}</p>
             </button>
             <p className="font-poppins opacity-70 text-[12px]">{stringDate}</p>

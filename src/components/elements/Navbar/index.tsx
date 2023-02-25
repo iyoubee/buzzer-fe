@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { LoginModal } from '../LoginModal'
 import { RegisterModal } from '../RegisterModal'
 import { useAuthContext } from '@contexts'
+import { useRouter } from 'next/router'
 
 export const Navbar: React.FC = () => {
   const [isOpenModalLogin, setIsOpenModalLogin] = useState(false)
@@ -27,6 +28,8 @@ export const Navbar: React.FC = () => {
   }
 
   const { isLogged, username, logout } = useAuthContext()
+
+  const router = useRouter()
 
   return (
     <>
@@ -66,6 +69,7 @@ export const Navbar: React.FC = () => {
                               ? 'bg-blueOnBackgroud text-white'
                               : 'text-gray-900'
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm gap-2`}
+                          onClick={() => router.push(`/user/${username}`)}
                         >
                           <Home /> Home
                         </button>

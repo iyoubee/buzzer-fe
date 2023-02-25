@@ -22,4 +22,5 @@ export interface AuthContextProps {
   connectCloseFriends: (closeFriendsId: number) => Promise<void>
   disconnectCloseFriends: (closeFriendsId: number) => Promise<void>
   refreshCloseFriend: () => Promise<void>
+  getMessages: (username: string) => Promise<any>
 }
