@@ -11,6 +11,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm()
 
@@ -19,6 +20,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
   const onLogin = (data: any) => {
     regisAuth(data.email, data.username, data.password).finally(() => {
       onClose()
+      reset({ email: '', username: '', password: '' })
     })
   }
 

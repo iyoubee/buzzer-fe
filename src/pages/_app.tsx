@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import { Error, SpinElipse, Success } from '@icons'
 import { Navbar } from '@elements'
 import { AuthContextProvider } from '@contexts'
+import Head from 'next/head'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -48,6 +49,15 @@ export default function App({ Component, pageProps }: AppProps) {
             },
           }}
         />
+        <Head>
+          <title>RISTEK MedSOS</title>
+          <meta
+            name="description"
+            content="RISTEK MedSOS for oprec assignment"
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <div className="bg-backgroundColor w-full min-h-screen flex justify-center pb-10">
           <div className=" min-h-screen max-w-[1440px] w-full items-center flex flex-col">
             <Navbar />

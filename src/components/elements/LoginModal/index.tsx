@@ -18,6 +18,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm()
 
@@ -25,6 +26,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const onLogin = (data: any) => {
     login(data.username, data.password).finally(() => {
       closeModalLogin()
+      reset({ username: '', password: '' })
     })
   }
 
